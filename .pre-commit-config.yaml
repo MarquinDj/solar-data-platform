@@ -1,0 +1,46 @@
+minimum_pre_commit_version: "3.7.0"
+
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace          # remove espaços no fim das linhas
+      - id: end-of-file-fixer            # garante \n no final do arquivo
+      - id: check-yaml                   # valida sintaxe YAML
+      - id: check-toml                   # valida sintaxe TOML
+      - id: check-json                   # valida sintaxe JSON
+      - id: check-added-large-files      # proíbe arquivos grandes
+        args: [--maxkb=500]
+      - id: check-merge-conflict         # detecta marcadores <<<<<<< esquecidos
+      - id: check-case-conflict          # avisa de arquivos com nome conflitante (Foo.py vs foo.py)
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: detect-private-key           # impede commit de chaves privadas
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff                          # lint
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format                   # formatador (estilo black)
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v2.0.0
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-requests
+          - types-PyYAML
+        args: [--config-file=pyproject.toml]
+        pass_filenames: false
+        files: ^(src|pipelines|tests)/
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.29.1
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]

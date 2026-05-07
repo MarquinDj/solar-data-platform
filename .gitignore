@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+.eggs/
+*.egg-info/
+build/
+dist/
+
+# Testes / cobertura
+.pytest_cache/
+.coverage
+.coverage.*
+reports/
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Projeto
+.env
+.env.local
+*.log
+
+# Dados (jamais commitar dado real)
+data/
+*.parquet
+*.csv
+!tests/fixtures/**/*.csv
+!dbt/seeds/*.csv
+
+# Airflow
+airflow/logs/
+airflow/airflow.db
+airflow/airflow.cfg
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+# Docker
+.docker/
