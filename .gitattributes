@@ -1,7 +1,7 @@
 * text=auto eol=lf
 *.sh text eol=lf
 *.py text eol=lf
-*.bat text eol=crlf #talvez seja inútil
+*.bat text eol=crlf
 *.png binary
 *.jpg binary
 *.parquet binary
