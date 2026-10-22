@@ -1,10 +1,12 @@
 from solar_data_platform.aux_func import (
-    get_power_daily, 
-    valid_response, 
-    save_data, 
-    clean_series, 
-    save_dataframe)
+    get_power_daily,
+    valid_response,
+    save_data,
+    clean_series,
+    save_dataframe,
+)
 from solar_data_platform.paths import RAW, PROCESSED
+from solar_data_platform.load import insert_db_data
 import datetime
 
 
@@ -27,4 +29,7 @@ save = save_data(json_return, RAW, file_name)
 
 ##Salvar dados tratados
 clean_json = clean_series(json_return)
-save_dataframe(clean_json, PROCESSED / "clean.csv")
+csv_path = save_dataframe(clean_json, PROCESSED / "clean.csv")
+
+##Salva no banco
+insert_db_data(csv_path)

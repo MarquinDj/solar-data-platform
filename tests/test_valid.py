@@ -10,6 +10,7 @@ caminho_arquivo = Path(__file__).resolve().parent / "fixtures" / "nasa_power_for
 with open(caminho_arquivo, "r", encoding="utf-8") as f:
     test_dict = json.load(f)
 
+
 def test_valid_response_accept() -> None:
     assert valid_response(test_dict) is None
 
@@ -23,10 +24,12 @@ def test_save_raw(tmp_path) -> None:
     file = save_data(test_dict, tmp_path, "test.json")
     assert file.exists()
 
+
 def test_clear_data() -> None:
     fill_value = test_dict["header"]["fill_value"]
     clean_json = clean_series(test_dict)
-    assert(fill_value not in clean_json.values)
+    assert fill_value not in clean_json.values
+
 
 def test_save_clear(tmp_path) -> None:
     clean_json = clean_series(test_dict)
