@@ -32,4 +32,5 @@ clean_json = clean_series(json_return)
 csv_path = save_dataframe(clean_json, PROCESSED / "clean.csv")
 
 ##Salva no banco
-insert_db_data(csv_path)
+rows_affected = insert_db_data(csv_path)
+print(f"Quantidade de linha afetadas: {rows_affected}")
