@@ -12,6 +12,7 @@ services:
       POSTGRES_DB: solar
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./src/solar_data_platform/sql:/docker-entrypoint-initdb.d:ro
 
 volumes:
   pgdata:
