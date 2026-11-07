@@ -6,12 +6,12 @@ from pathlib import Path
 from solar_data_platform.paths import ENV
 
 
-def connect_db() -> psycopg.Connection:
+def connect_db(dbname: str | None = None) -> psycopg.Connection:
 
     load_dotenv(dotenv_path=ENV)
 
     conn = psycopg.connect(
-        dbname=os.getenv("POSTGRES_DB"),
+        dbname=dbname or os.getenv("POSTGRES_DB"),
         user=os.getenv("POSTGRES_USER"),
         password=os.getenv("POSTGRES_PASSWORD"),
         host=os.getenv("POSTGRES_HOST"),
@@ -20,10 +20,10 @@ def connect_db() -> psycopg.Connection:
     return conn
 
 
-def insert_db_data(path: Path) -> int:
+def insert_db_data(path: Path, dbname: str | None = None) -> int:
     cols = "date,allsky_sfc_sw_dwn,t2m,longitude,latitude,elevation"
 
-    with connect_db() as conn:
+    with connect_db(dbname) as conn:
         with conn.cursor() as cur:
             cur.execute(f"""
                 CREATE TEMP TABLE irradiance_stage ON COMMIT DROP AS
